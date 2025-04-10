@@ -2,6 +2,8 @@ name: build-test-deploy
 
 on: push
 jobs:
+
+# Build an app
   build:
     runs-on: ubuntu-latest
     
@@ -14,7 +16,8 @@ jobs:
           node-version: '20.x'
       - run: npm install
       - run: npm run build
-  
+
+  # Test the app
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -29,4 +32,4 @@ jobs:
       - run: npm install
       - run: npm test
 
-      # Jobs are independent so steps are scoped locally and need to be repeated for every job
+      # Note: Jobs are independent so steps are scoped locally and need to be repeated for every job
