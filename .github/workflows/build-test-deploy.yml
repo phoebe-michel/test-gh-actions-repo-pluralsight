@@ -1,13 +1,19 @@
-name: build-test-deploy
+name: build-test-deploy #descriptive title for your workflow
 # Note: Jobs are independent so steps are scoped locally and need to be repeated for every job
 
+# set the event trigger
 on: push
+
+# define the jobs that we want to occur within this workflow
 jobs:
 
-# Build an app
+# Job 1: Build an app
   build:
+
+  # define a runner for this job
     runs-on: ubuntu-latest
-    
+
+    # Define steps and specific actions we want to occur within job
     steps:
       - name: checkout repos
         uses: actions/checkout@v4
@@ -18,7 +24,7 @@ jobs:
       - run: npm install
       - run: npm run build
 
-  # Test the app
+  # Job 2: Test the app
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -33,7 +39,10 @@ jobs:
       - run: npm install
       - run: npm test
 
+  # Job 3: Deploy app
   deploy:
+
+    # Enforces that jobs run in a sequential order, where the current job is contingent on the success of another job
     needs: test
 
     # define permissions to determine what our workflow is allowed to do
