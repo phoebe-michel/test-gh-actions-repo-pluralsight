@@ -11,7 +11,7 @@ jobs:
   build:
 
   # define a runner for this job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # GitHub hosted runner
 
     # Define steps and specific actions we want to occur within job
     steps:
@@ -49,13 +49,13 @@ jobs:
     permissions:
       contents: write
       pages: write
-      id-token: write
+      id-token: write # token grants our workflow the power to access and tweak various parts of our repo, which is why it needs write access
 
     # define our deployment environment 
     # pinpoint our environment as our deployment destination by passing 'name' of environment and 'url' of deployment to the environment
     environment:
       name: production
-      url: ${{ steps.deployment.outputs.page_url }} #snags url from the final deployment step
+      url: ${{ steps.deployment.outputs.page_url }} #snag url from the final deployment step
 
     runs-on: ubuntu-latest
 
